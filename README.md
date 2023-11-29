@@ -1,4 +1,4 @@
-# project
+# finanztracker-frontend
 
 ## Project setup
 ```
