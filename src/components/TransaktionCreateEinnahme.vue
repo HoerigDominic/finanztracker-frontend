@@ -1,28 +1,21 @@
 <template>
-    <button class=round-button data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">+</button>
+    <button class="round-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">+</button>
 
-    <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+    <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasBottomLabel">Neue Transatkion</h5>
+            <h5 class="offcanvas-title" id="offcanvasTopLabel">Neue Einnahme:</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body small">
+        <div class="offcanvas-body">
             <input type="date" placeholder="Datum auswählen:">
-            <label for="art">Art auswählen:</label>
-            <select id="art" name="art">
-                <option value="option1">Einnahme</option>
-                <option value="option2">Ausgabe</option>
-                <option value="option3">Option 3</option>
-                <!-- Weitere Optionen hier hinzufügen -->
-            </select>
-            <input type="text" pattern="^\d+(\,\d{1,2})?$" placeholder="Euro-Betrag eingeben">
+            <input type="text" pattern="-^\d+(\,\d{1,2})?$" placeholder="Euro-Betrag eingeben">
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    name: "OffCanvas"
+    name: "TransaktionCreateEinnahme"
 }
 </script>
 
