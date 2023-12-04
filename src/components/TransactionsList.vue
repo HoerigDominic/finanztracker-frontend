@@ -1,6 +1,5 @@
 <template>
-    <h1>Finanztracker</h1>
-    <div class="transaction">
+    <div class="transactionsList">
         <table class="centered-table">
             <thead>
             <tr>
@@ -21,7 +20,7 @@
                 <td>{{ transaction.beschreibung }}</td>
                 <td>
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             Aktionen
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -53,7 +52,7 @@ export default {
     },
     methods: {
 
-    },
+        },
 
     mounted() {
         const requestOptions = {
@@ -73,7 +72,7 @@ export default {
 </script>
 
 <style>
-.transaction {
+.transactionsList {
     display: flex;
     justify-content: center;
 }
@@ -92,4 +91,5 @@ export default {
 .centered-table th {
     background-color: #f2f2f2;
 }
+
 </style>
