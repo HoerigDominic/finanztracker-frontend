@@ -1,5 +1,7 @@
 # finanztracker-frontend
 
+[![CI](https://github.com/HoerigDominic/finanztracker-frontend/actions/workflows/ci.yml/badge.svg)](https://github.com/HoerigDominic/finanztracker-frontend/actions/workflows/ci.yml)
+
 ## Project setup
 ```
 npm install
