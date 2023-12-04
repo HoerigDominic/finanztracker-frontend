@@ -20,6 +20,15 @@
                 <td>{{ transaction.kategorie }}</td>
                 <td>{{ transaction.beschreibung }}</td>
                 <td>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Aktionen
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#">Löschen</a></li>
+                            <li><a class="dropdown-item" href="#">Bearbeiten</a></li>
+                        </ul>
+                    </div>
                 </td>
             </tr>
             </tbody>
