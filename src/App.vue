@@ -1,7 +1,4 @@
 <template>
-    <nav>
-        <router-link to="/">Home</router-link>
-    </nav>
     <router-view/>
 </template>
 
@@ -27,3 +24,5 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>
+<script setup lang="ts">
+</script>
