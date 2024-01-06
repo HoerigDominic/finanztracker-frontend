@@ -1,25 +1,23 @@
 <template>
   <div class="home">
       <Navbar/>
-    <TransactionsList/>
-      <TransaktionCreateEinnahme/>
-      <TransaktionCreateAusgabe/>
+      <TransactionsList/>
+      <TransactionCreate/>
   </div>
 </template>
 
 <script lang="ts">
+import TransactionCreate from "@/components/TransactionCreate.vue";
+import Navbar from "@/components/Navbar.vue";
 import { Options, Vue } from 'vue-class-component';
 import TransactionsList from "@/components/TransactionsList.vue";
-import TransaktionCreateEinnahme from "@/components/TransaktionCreateEinnahme.vue";
-import Navbar from "@/components/Navbar.vue";
-import TransaktionCreateAusgabe from "@/components/TransaktionCreateAusgabe.vue";
+
 
 @Options({
   components: {
-      TransaktionCreateAusgabe,
       Navbar,
-      TransaktionCreateEinnahme,
-      TransactionsList
+      TransactionsList,
+      TransactionCreate
   },
 })
 export default class HomeView extends Vue {}
