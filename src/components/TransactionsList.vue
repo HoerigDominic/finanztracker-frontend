@@ -12,12 +12,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="transaction in transactions" :key="transaction.id">
-                <td>{{ transaction.datum }}</td>
-                <td>{{ transaction.art }}</td>
-                <td>{{ transaction.betrag}}</td>
-                <td>{{ transaction.kategorie }}</td>
-                <td>{{ transaction.beschreibung }}</td>
+            <tr v-for="transaktion in transaktionen" :key="transaktion.id">
+                <td>{{ transaktion.datum }}</td>
+                <td>{{ transaktion.art }}</td>
+                <td>{{ transaktion.betrag}}</td>
+                <td>{{ transaktion.kategorie }}</td>
+                <td>{{ transaktion.beschreibung }}</td>
                 <td>
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -41,13 +41,12 @@ export default {
 
     data() {
         return {
-            transactions: [],
+            transaktionen: [],
             datum: '',
             art: '',
             betrag: '',
             kategorie: '',
             beschreibung: '',
-            aktionen:''
         };
     },
     methods: {
@@ -62,8 +61,8 @@ export default {
 
         fetch('http://localhost:8080/transaktionen',requestOptions)
             .then(response => response.json())
-            .then(result => result.forEach(transaction =>{
-                this.transactions.push(transaction)
+            .then(result => result.forEach(transaktion =>{
+                this.transaktionen.push(transaktion)
             }))
             .catch(error => console.log('error',error))
     }
