@@ -10,11 +10,11 @@
             <form class="row g-3">
                 <div class="col-md-6">
                     <label for="inputDate" class="form-label">Datum</label>
-                    <input type="date" v-model="datum" class="form-control" id="inputDate">
+                    <input type="date" v-model="datum" required class="form-control" id="inputDate">
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" >
                     <label for="inputArt" class="form-label">Art</label>
-                    <select class="form-select" v-model="art" id="inputArt">
+                    <select class="form-select" v-model="art" required id="inputArt">
                         <option value="" selected disabled>Auswählen...</option>
                         <option value="Einnahme">Einnahme</option>
                         <option value="Ausgabe" >Ausgabe</option>
@@ -22,14 +22,14 @@
                 </div>
                 <div class="col-md-6">
                     <label for="inputBetrag" class="form-label">Betrag</label>
-                    <input type="number" v-model="betrag" class="form-control" id="inputBetrag"
+                    <input type="number" v-model="betrag" required class="form-control" id="inputBetrag"
                            :min="art === 'Einnahme' ? 0.00 : -Infinity"
                            :max="art === 'Ausgabe' ? 0.00 : Infinity"
                            step="0.01" placeholder="0.00 €" />
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" >
                     <label for="inputKategorie" class="form-label">Kategorie</label>
-                    <select class="form-select" v-model= "kategorie" id="inputKategorie">
+                    <select class="form-select" v-model= "kategorie" required id="inputKategorie">
                         <option value="" selected disabled>Auswählen...</option>
                         <option v-for="kategorie in kategorien" :value="kategorie" :key="kategorie">{{ kategorie }}</option>
                     </select>
@@ -39,7 +39,7 @@
                     <input type="text" v-model="beschreibung" class="form-control" id="inputAddress2">
                 </div>
                 <div class="col-12">
-                    <button type= submit @click.prevent="createTransaktion" class="btn btn-primary me-3">Bestätigen</button>
+                    <button type= submit @click="createTransaktion" class="btn btn-primary me-3">Bestätigen</button>
                     <button class="btn btn-danger" type="reset">Reset</button>
                 </div>
             </form>
@@ -50,6 +50,7 @@
 <script>
 export default {
     name: "TransactionCreate",
+
     data() {
         return {
             datum: '',
@@ -62,16 +63,8 @@ export default {
     },
     methods: {
         createTransaktion() {
-            console.log(this.datum)
-            console.log(this.art)
-            console.log(this.betrag)
-            console.log(this.kategorie)
-            console.log(this.beschreibung)
 
             const endpoint = 'http://localhost:8080/transaktionen'
-
-            const headers = new Headers()
-            headers.append('Content-Type', 'application/json')
 
             const payload = JSON.stringify( {
                 datum: this.datum,
@@ -83,7 +76,7 @@ export default {
 
             const requestOption = {
                 method: 'POST',
-                headers: headers,
+                headers: {'Content-Type': 'application/json'},
                 body: payload,
                 redirect: 'follow'
             }
