@@ -1,6 +1,4 @@
 <template>
-    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasTop">Transaktion erstellen</button>
-
     <!-- Offcanvas rechts für Create//-->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
@@ -116,7 +114,7 @@
             <tr>
                 <th>Datum</th>
                 <th>Art</th>
-                <th>Betrag</th>
+                <th>Betrag in €</th>
                 <th>Kategorie</th>
                 <th>Beschreibung</th>
                 <th></th>
@@ -146,10 +144,14 @@
             </tbody>
         </table>
     </div>
+    <button class="btn btn-primary round-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasTop">+</button>
 </template>
 
 <script>
 export default {
+
+    name: "TransactionComp",
+
     data() {
         return {
             id:'',
@@ -297,6 +299,18 @@ export default {
 </script>
 
 <style>
+
+.round-button {
+    width: 50px; /* Durchmesser des runden Buttons */
+    height: 50px; /* Durchmesser des runden Buttons */
+    border-radius: 50%; /* Macht den Button rund */
+    border: none; /* Entfernt den Rand des Buttons */
+    color: white; /* Textfarbe des Pluszeichens */
+    font-size: 24px; /* Größe des Pluszeichens */
+    cursor: pointer; /* Zeigt an, dass es sich um einen anklickbaren Button handelt */
+    bottom: 20px; /* Abstand vom unteren Rand der Seite */
+    right: 20px; /* Abstand vom rechten Rand der Seite */
+}
 
 .button-container {
     position: fixed;
