@@ -117,29 +117,29 @@
                 <th>Betrag in €</th>
                 <th>Kategorie</th>
                 <th>Beschreibung</th>
-                <th></th>
+                <th>Summe</th>
+
             </tr>
             </thead>
             <tbody>
             <!-- Schleife um alle Transaktionen aus Beackend anzuzeigen-->
-            <tr v-for="transaktion in transaktionen" :key="transaktion.id">
+            <tr v-for="(transaktion,index) in transaktionen" :key="transaktion.id">
                 <td>{{ transaktion.datum }}</td>
                 <td>{{ transaktion.art }}</td>
                 <td>{{ transaktion.betrag}}</td>
                 <td>{{ transaktion.kategorie }}</td>
                 <td>{{ transaktion.beschreibung }}</td>
-                <td>
-                    <!-- Dropwonbutton um Transaktion zu löschen (deleteFunktion) oder zu bearbeiten-->
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <td>{{ berechneGesamtSumme(index) }}</td>
+
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             Aktionen
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" @click="deleteTransaction(transaktion.id)"  href="#">Löschen</a> </li>
-                            <li><a class="dropdown-item" data-bs-toggle="offcanvas" data-bs-target="#offcanvasLeft" @click = "loadTransactionDataForUpdate(transaktion)" href="#">Bearbeiten</a></li>
-                        </ul>
-                    </div>
-                </td>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" @click="deleteTransaction(transaktion.id)"  href="#">Löschen</a> </li>
+                        <li><a class="dropdown-item" data-bs-toggle="offcanvas" data-bs-target="#offcanvasLeft" @click = "loadTransactionDataForUpdate(transaktion)" href="#">Bearbeiten</a></li>
+                    </ul>
+                </div>
             </tr>
             </tbody>
         </table>
@@ -165,6 +165,7 @@ export default {
         };
     },
     methods: {
+
         //Methode um eine Transaktion zu erstellen
         createTransaction() {
 
@@ -191,7 +192,40 @@ export default {
             }
 
             fetch(endpoint, requestOption)
+                .then(response => response.json())
+                .then(() => {
+                    // Nachdem die Transaktion erfolgreich erstellt wurde,
+                    // füge die neue Transaktion lokal hinzu und berechne die Gesamtsumme
+                    this.addTransactionLocally();
+                })
                 .catch(error => console.log('error', error))
+        },
+
+        //Methode um Transaktionen in lokaler Liste zu speichern
+        addTransactionLocally() {
+            const newTransaction = {
+                datum: this.datum,
+                art: this.art,
+                betrag: this.betrag,
+                kategorie: this.kategorie,
+                beschreibung: this.beschreibung,
+            };
+
+            // Füge die neue Transaktion lokal hinzu
+            this.transaktionen.push(newTransaction);
+
+            // Berechne die Gesamtsumme
+            this.berechneGesamtSumme();
+        },
+
+        // Methode um die Gesamtsumme zu berechnen
+        berechneGesamtSumme(index) {
+            // Summiere die Beträge aller Transaktionen in der lokalen Liste
+            let summe = 0;
+            for (let i = 0; i <= index; i++) {
+                summe += parseFloat(this.transaktionen[i].betrag);
+            }
+            return summe;
         },
 
         //Methode um eine Transaktion zu löschen//
@@ -282,10 +316,12 @@ export default {
         fetch('http://localhost:8080/transaktionen', requestOptions)
             .then(response => response.json())
             .then(result => result.forEach(transaktion => {
+                result.sort((a, b) => new Date(a.datum) - new Date(b.datum));
                 this.transaktionen.push(transaktion)
             }))
             .catch(error => console.log('error', error))
     },
+
 };
 </script>
 
