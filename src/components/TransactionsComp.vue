@@ -105,7 +105,7 @@
 
     <!-- Button deleteAllFunktion-->
     <div class="button-container">
-        <button class="btn btn-danger" @click="confirmDelete()" >Alle Transaktionen löschen</button>
+        <button class="btn btn-danger" @click="confirmDelete()" >Alle Einträge löschen</button>
     </div>
     <!-- Tabelle für Transaktionen-->
     <div class="transactionsList">
@@ -165,22 +165,13 @@ export default {
         };
     },
     methods: {
-        //unused da mount Funktion//
-        loadThings () {
-            const requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-            }
-            fetch('http://localhost:8080/transaktionen', requestOptions)
-                .then(response => response.json())
-                .then(result => result.forEach(transaktion => {
-                    this.transaktionen.push(transaktion)
-                }))
-                .catch(error => console.log('error', error))
-        },
-
-        //Methode um eine Transaktion zu erstellen//
+        //Methode um eine Transaktion zu erstellen
         createTransaction() {
+
+            if ((this.art === 'Einnahme' && this.betrag < 0) || (this.art === 'Ausgabe' && this.betrag > 0)) {
+                console.error('Ungültiger Betrag für die ausgewählte Art. Bitte überprüfen Sie Ihre Eingabe.');
+                return;
+            }
 
             const endpoint = 'http://localhost:8080/transaktionen'
 
