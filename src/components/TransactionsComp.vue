@@ -117,7 +117,7 @@
                 <th>Betrag in €</th>
                 <th>Kategorie</th>
                 <th>Beschreibung</th>
-                <th>Summe</th>
+                <th>Summe in €</th>
 
             </tr>
             </thead>
@@ -129,7 +129,7 @@
                 <td>{{ transaktion.betrag}}</td>
                 <td>{{ transaktion.kategorie }}</td>
                 <td>{{ transaktion.beschreibung }}</td>
-                <td>{{ berechneGesamtSumme(index) }}</td>
+                <td>{{ calculateSum(index) }}</td>
 
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -193,34 +193,14 @@ export default {
 
             fetch(endpoint, requestOption)
                 .then(response => response.json())
-                .then(() => {
-                    // Nachdem die Transaktion erfolgreich erstellt wurde,
-                    // füge die neue Transaktion lokal hinzu und berechne die Gesamtsumme
-                    this.addTransactionLocally();
+                .then(data => {
+                    console.log('Success:', data)
                 })
                 .catch(error => console.log('error', error))
         },
 
-        //Methode um Transaktionen in lokaler Liste zu speichern
-        addTransactionLocally() {
-            const newTransaction = {
-                datum: this.datum,
-                art: this.art,
-                betrag: this.betrag,
-                kategorie: this.kategorie,
-                beschreibung: this.beschreibung,
-            };
-
-            // Füge die neue Transaktion lokal hinzu
-            this.transaktionen.push(newTransaction);
-
-            // Berechne die Gesamtsumme
-            this.berechneGesamtSumme();
-        },
-
         // Methode um die Gesamtsumme zu berechnen
-        berechneGesamtSumme(index) {
-            // Summiere die Beträge aller Transaktionen in der lokalen Liste
+        calculateSum(index) {
             let summe = 0;
             for (let i = 0; i <= index; i++) {
                 summe += parseFloat(this.transaktionen[i].betrag);
@@ -304,7 +284,6 @@ export default {
                     console.log('Success:', data)
                 })
                 .catch(error => console.log('error', error))
-
         }
     },
     //Methode um alle Transaktionen zu laden//
@@ -327,23 +306,10 @@ export default {
 
 <style>
 
-.round-button {
-    width: 50px; /* Durchmesser des runden Buttons */
-    height: 50px; /* Durchmesser des runden Buttons */
-    border-radius: 50%; /* Macht den Button rund */
-    border: none; /* Entfernt den Rand des Buttons */
-    color: white; /* Textfarbe des Pluszeichens */
-    font-size: 24px; /* Größe des Pluszeichens */
-    cursor: pointer; /* Zeigt an, dass es sich um einen anklickbaren Button handelt */
-    bottom: 20px; /* Abstand vom unteren Rand der Seite */
-    right: 20px; /* Abstand vom rechten Rand der Seite */
-}
-
 .button-container {
     position: fixed;
     top: 20px; /* Abstand vom oberen Rand */
     right: 20px; /* Abstand vom rechten Rand */
-    z-index: 999; /* Z-Index, um sicherzustellen, dass der Button über anderen Elementen liegt */
 }
 
 .transactionsList {
@@ -356,11 +322,7 @@ export default {
     width: 70%; /* Beispiel für die Breite der Tabelle */
     margin-top: 20px; /* Beispiel für den oberen Abstand */
 }
-.centered-table th, .centered-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
+
 .centered-table th {
     background-color: #f2f2f2;
 }
