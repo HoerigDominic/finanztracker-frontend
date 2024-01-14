@@ -1,4 +1,5 @@
 <template>
+    <h1>Money Manager</h1>
     <router-view/>
 </template>
 
